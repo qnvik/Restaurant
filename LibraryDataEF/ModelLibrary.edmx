@@ -1,0 +1,504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище KitchenModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="id_city" />
+          </Key>
+          <Property Name="id_city" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="city_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Dish">
+          <Key>
+            <PropertyRef Name="id_dish" />
+          </Key>
+          <Property Name="id_dish" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_meal" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="vegeterian" Type="bit" />
+        </EntityType>
+        <EntityType Name="Kitchen">
+          <Key>
+            <PropertyRef Name="id_kitchen" />
+          </Key>
+          <Property Name="id_kitchen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Meal">
+          <Key>
+            <PropertyRef Name="id_meal" />
+          </Key>
+          <Property Name="id_meal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_kitchen" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Price_Dish">
+          <Key>
+            <PropertyRef Name="id_price" />
+          </Key>
+          <Property Name="id_price" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_rd" Type="int" />
+          <Property Name="price" Type="money" />
+          <Property Name="weight" Type="int" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <EntityType Name="Restauran">
+          <Key>
+            <PropertyRef Name="id_restauran" />
+          </Key>
+          <Property Name="id_restauran" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_city" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="rating" Type="int" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Restauran_Dish">
+          <Key>
+            <PropertyRef Name="id_rd" />
+          </Key>
+          <Property Name="id_rd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_dish" Type="int" />
+          <Property Name="id_restaurant" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Dish_Meal">
+          <End Role="Meal" Type="Self.Meal" Multiplicity="0..1" />
+          <End Role="Dish" Type="Self.Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meal">
+              <PropertyRef Name="id_meal" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="id_meal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Meal_Kitchen">
+          <End Role="Kitchen" Type="Self.Kitchen" Multiplicity="0..1" />
+          <End Role="Meal" Type="Self.Meal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kitchen">
+              <PropertyRef Name="id_kitchen" />
+            </Principal>
+            <Dependent Role="Meal">
+              <PropertyRef Name="id_kitchen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_Restauran Dish">
+          <End Role="Restauran_Dish" Type="Self.Restauran_Dish" Multiplicity="0..1" />
+          <End Role="Price_Dish" Type="Self.Price_Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restauran_Dish">
+              <PropertyRef Name="id_rd" />
+            </Principal>
+            <Dependent Role="Price_Dish">
+              <PropertyRef Name="id_rd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restauran Dish_Dish">
+          <End Role="Dish" Type="Self.Dish" Multiplicity="0..1" />
+          <End Role="Restauran_Dish" Type="Self.Restauran_Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dish">
+              <PropertyRef Name="id_dish" />
+            </Principal>
+            <Dependent Role="Restauran_Dish">
+              <PropertyRef Name="id_dish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restauran Dish_Restaurant">
+          <End Role="Restauran" Type="Self.Restauran" Multiplicity="0..1" />
+          <End Role="Restauran_Dish" Type="Self.Restauran_Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restauran">
+              <PropertyRef Name="id_restauran" />
+            </Principal>
+            <Dependent Role="Restauran_Dish">
+              <PropertyRef Name="id_restaurant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restaurant_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Restauran" Type="Self.Restauran" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="id_city" />
+            </Principal>
+            <Dependent Role="Restauran">
+              <PropertyRef Name="id_city" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище KitchenModelContainer">
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dish" EntityType="Self.Dish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kitchen" EntityType="Self.Kitchen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Meal" EntityType="Self.Meal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Price_Dish" EntityType="Self.Price_Dish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restauran" EntityType="Self.Restauran" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restauran_Dish" EntityType="Self.Restauran_Dish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Dish_Meal" Association="Self.FK_Dish_Meal">
+            <End Role="Meal" EntitySet="Meal" />
+            <End Role="Dish" EntitySet="Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Meal_Kitchen" Association="Self.FK_Meal_Kitchen">
+            <End Role="Kitchen" EntitySet="Kitchen" />
+            <End Role="Meal" EntitySet="Meal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_Restauran Dish" Association="Self.FK_Price_Restauran Dish">
+            <End Role="Restauran_Dish" EntitySet="Restauran_Dish" />
+            <End Role="Price_Dish" EntitySet="Price_Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restauran Dish_Dish" Association="Self.FK_Restauran Dish_Dish">
+            <End Role="Dish" EntitySet="Dish" />
+            <End Role="Restauran_Dish" EntitySet="Restauran_Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restauran Dish_Restaurant" Association="Self.FK_Restauran Dish_Restaurant">
+            <End Role="Restauran" EntitySet="Restauran" />
+            <End Role="Restauran_Dish" EntitySet="Restauran_Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restaurant_City" Association="Self.FK_Restaurant_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Restauran" EntitySet="Restauran" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KitchenModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="id_city" />
+          </Key>
+          <Property Name="id_city" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="city_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Restaurans" Relationship="Self.FK_Restaurant_City" FromRole="City" ToRole="Restauran" />
+        </EntityType>
+        <EntityType Name="Dish">
+          <Key>
+            <PropertyRef Name="id_dish" />
+          </Key>
+          <Property Name="id_dish" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_meal" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="vegeterian" Type="Boolean" />
+          <NavigationProperty Name="Meal" Relationship="Self.FK_Dish_Meal" FromRole="Dish" ToRole="Meal" />
+          <NavigationProperty Name="Restauran_Dish" Relationship="Self.FK_Restauran_Dish_Dish" FromRole="Dish" ToRole="Restauran_Dish" />
+        </EntityType>
+        <EntityType Name="Kitchen">
+          <Key>
+            <PropertyRef Name="id_kitchen" />
+          </Key>
+          <Property Name="id_kitchen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Meals" Relationship="Self.FK_Meal_Kitchen" FromRole="Kitchen" ToRole="Meal" />
+        </EntityType>
+        <EntityType Name="Meal">
+          <Key>
+            <PropertyRef Name="id_meal" />
+          </Key>
+          <Property Name="id_meal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_kitchen" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dishes" Relationship="Self.FK_Dish_Meal" FromRole="Meal" ToRole="Dish" />
+          <NavigationProperty Name="Kitchen" Relationship="Self.FK_Meal_Kitchen" FromRole="Meal" ToRole="Kitchen" />
+        </EntityType>
+        <EntityType Name="Price_Dish">
+          <Key>
+            <PropertyRef Name="id_price" />
+          </Key>
+          <Property Name="id_price" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_rd" Type="Int32" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="weight" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Restauran_Dish" Relationship="Self.FK_Price_Restauran_Dish" FromRole="Price_Dish" ToRole="Restauran_Dish" />
+        </EntityType>
+        <EntityType Name="Restauran">
+          <Key>
+            <PropertyRef Name="id_restauran" />
+          </Key>
+          <Property Name="id_restauran" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_city" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="rating" Type="Int32" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Restaurant_City" FromRole="Restauran" ToRole="City" />
+          <NavigationProperty Name="Restauran_Dish" Relationship="Self.FK_Restauran_Dish_Restaurant" FromRole="Restauran" ToRole="Restauran_Dish" />
+        </EntityType>
+        <EntityType Name="Restauran_Dish">
+          <Key>
+            <PropertyRef Name="id_rd" />
+          </Key>
+          <Property Name="id_rd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_dish" Type="Int32" />
+          <Property Name="id_restaurant" Type="Int32" />
+          <NavigationProperty Name="Dish" Relationship="Self.FK_Restauran_Dish_Dish" FromRole="Restauran_Dish" ToRole="Dish" />
+          <NavigationProperty Name="Price_Dish" Relationship="Self.FK_Price_Restauran_Dish" FromRole="Restauran_Dish" ToRole="Price_Dish" />
+          <NavigationProperty Name="Restauran" Relationship="Self.FK_Restauran_Dish_Restaurant" FromRole="Restauran_Dish" ToRole="Restauran" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Restaurant_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Restauran" Type="Self.Restauran" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="id_city" />
+            </Principal>
+            <Dependent Role="Restauran">
+              <PropertyRef Name="id_city" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dish_Meal">
+          <End Role="Meal" Type="Self.Meal" Multiplicity="0..1" />
+          <End Role="Dish" Type="Self.Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meal">
+              <PropertyRef Name="id_meal" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="id_meal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restauran_Dish_Dish">
+          <End Role="Dish" Type="Self.Dish" Multiplicity="0..1" />
+          <End Role="Restauran_Dish" Type="Self.Restauran_Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dish">
+              <PropertyRef Name="id_dish" />
+            </Principal>
+            <Dependent Role="Restauran_Dish">
+              <PropertyRef Name="id_dish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Meal_Kitchen">
+          <End Role="Kitchen" Type="Self.Kitchen" Multiplicity="0..1" />
+          <End Role="Meal" Type="Self.Meal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kitchen">
+              <PropertyRef Name="id_kitchen" />
+            </Principal>
+            <Dependent Role="Meal">
+              <PropertyRef Name="id_kitchen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Price_Restauran_Dish">
+          <End Role="Restauran_Dish" Type="Self.Restauran_Dish" Multiplicity="0..1" />
+          <End Role="Price_Dish" Type="Self.Price_Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restauran_Dish">
+              <PropertyRef Name="id_rd" />
+            </Principal>
+            <Dependent Role="Price_Dish">
+              <PropertyRef Name="id_rd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restauran_Dish_Restaurant">
+          <End Role="Restauran" Type="Self.Restauran" Multiplicity="0..1" />
+          <End Role="Restauran_Dish" Type="Self.Restauran_Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restauran">
+              <PropertyRef Name="id_restauran" />
+            </Principal>
+            <Dependent Role="Restauran_Dish">
+              <PropertyRef Name="id_restaurant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KitchenEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Dishes" EntityType="Self.Dish" />
+          <EntitySet Name="Kitchens" EntityType="Self.Kitchen" />
+          <EntitySet Name="Meals" EntityType="Self.Meal" />
+          <EntitySet Name="Price_Dish" EntityType="Self.Price_Dish" />
+          <EntitySet Name="Restaurans" EntityType="Self.Restauran" />
+          <EntitySet Name="Restauran_Dish" EntityType="Self.Restauran_Dish" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_Restaurant_City" Association="Self.FK_Restaurant_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Restauran" EntitySet="Restaurans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dish_Meal" Association="Self.FK_Dish_Meal">
+            <End Role="Meal" EntitySet="Meals" />
+            <End Role="Dish" EntitySet="Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restauran_Dish_Dish" Association="Self.FK_Restauran_Dish_Dish">
+            <End Role="Dish" EntitySet="Dishes" />
+            <End Role="Restauran_Dish" EntitySet="Restauran_Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Meal_Kitchen" Association="Self.FK_Meal_Kitchen">
+            <End Role="Kitchen" EntitySet="Kitchens" />
+            <End Role="Meal" EntitySet="Meals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_Restauran_Dish" Association="Self.FK_Price_Restauran_Dish">
+            <End Role="Restauran_Dish" EntitySet="Restauran_Dish" />
+            <End Role="Price_Dish" EntitySet="Price_Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restauran_Dish_Restaurant" Association="Self.FK_Restauran_Dish_Restaurant">
+            <End Role="Restauran" EntitySet="Restaurans" />
+            <End Role="Restauran_Dish" EntitySet="Restauran_Dish" />
+          </AssociationSet>
+          <EntitySet Name="Logins" EntityType="KitchenModel.Login" />
+        </EntityContainer>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="login1" />
+          </Key>
+          <Property Name="login1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище KitchenModelContainer" CdmEntityContainer="KitchenEntities">
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="KitchenModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="id_city" ColumnName="id_city" />
+                <ScalarProperty Name="city_name" ColumnName="city_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dishes">
+            <EntityTypeMapping TypeName="KitchenModel.Dish">
+              <MappingFragment StoreEntitySet="Dish">
+                <ScalarProperty Name="id_dish" ColumnName="id_dish" />
+                <ScalarProperty Name="id_meal" ColumnName="id_meal" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="vegeterian" ColumnName="vegeterian" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kitchens">
+            <EntityTypeMapping TypeName="KitchenModel.Kitchen">
+              <MappingFragment StoreEntitySet="Kitchen">
+                <ScalarProperty Name="id_kitchen" ColumnName="id_kitchen" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Meals">
+            <EntityTypeMapping TypeName="KitchenModel.Meal">
+              <MappingFragment StoreEntitySet="Meal">
+                <ScalarProperty Name="id_meal" ColumnName="id_meal" />
+                <ScalarProperty Name="id_kitchen" ColumnName="id_kitchen" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Price_Dish">
+            <EntityTypeMapping TypeName="KitchenModel.Price_Dish">
+              <MappingFragment StoreEntitySet="Price_Dish">
+                <ScalarProperty Name="id_price" ColumnName="id_price" />
+                <ScalarProperty Name="id_rd" ColumnName="id_rd" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restaurans">
+            <EntityTypeMapping TypeName="KitchenModel.Restauran">
+              <MappingFragment StoreEntitySet="Restauran">
+                <ScalarProperty Name="id_restauran" ColumnName="id_restauran" />
+                <ScalarProperty Name="id_city" ColumnName="id_city" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restauran_Dish">
+            <EntityTypeMapping TypeName="KitchenModel.Restauran_Dish">
+              <MappingFragment StoreEntitySet="Restauran_Dish">
+                <ScalarProperty Name="id_rd" ColumnName="id_rd" />
+                <ScalarProperty Name="id_dish" ColumnName="id_dish" />
+                <ScalarProperty Name="id_restaurant" ColumnName="id_restaurant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="KitchenModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="KitchenModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="login1" ColumnName="login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

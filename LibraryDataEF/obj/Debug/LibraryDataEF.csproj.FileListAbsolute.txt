@@ -1,0 +1,13 @@
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\bin\Debug\LibraryDataEF.dll.config
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\bin\Debug\LibraryDataEF.dll
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\bin\Debug\LibraryDataEF.pdb
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\bin\Debug\EntityFramework.dll
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\bin\Debug\EntityFramework.xml
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\obj\Debug\LibraryDataEF.csprojAssemblyReference.cache
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\obj\Debug\LibraryDataEF.csproj.CoreCompileInputs.cache
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\obj\Debug\LibraryDataEF.csproj.CopyComplete
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\obj\Debug\LibraryDataEF.dll
+C:\Users\Victoria\source\repos\LibraryEF\LibraryDataEF\obj\Debug\LibraryDataEF.pdb

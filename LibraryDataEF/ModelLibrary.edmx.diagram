@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4487db1bb4104ec9b40d5a6396c359c5" Name="Diagram1">
+        <EntityTypeShape EntityType="KitchenModel.City" Width="1.5" PointX="4.125" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KitchenModel.Dish" Width="1.5" PointX="4.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KitchenModel.Kitchen" Width="1.5" PointX="0.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="KitchenModel.Meal" Width="1.5" PointX="2.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KitchenModel.Price_Dish" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KitchenModel.Restauran" Width="1.5" PointX="1.875" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KitchenModel.Restauran_Dish" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KitchenModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="KitchenModel.FK_Restaurant_City" ManuallyRouted="false" />
+        <AssociationConnector Association="KitchenModel.FK_Dish_Meal" ManuallyRouted="false" />
+        <AssociationConnector Association="KitchenModel.FK_Restauran_Dish_Dish" ManuallyRouted="false" />
+        <AssociationConnector Association="KitchenModel.FK_Meal_Kitchen" ManuallyRouted="false" />
+        <AssociationConnector Association="KitchenModel.FK_Price_Restauran_Dish" ManuallyRouted="false" />
+        <AssociationConnector Association="KitchenModel.FK_Restauran_Dish_Restaurant" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KitchenModel.Login" Width="1.5" PointX="3.625" PointY="5.875" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
