@@ -1,0 +1,30 @@
+﻿@model ContosoUniversity.Models.Owner
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Подробиці</h1>
+
+<div>
+    <h4>Власники</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Birth)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Birth)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.OwnerID">Редагувати</a> |
+    <a asp-action="Index">Повернутися</a>
+</div>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ContosoUniversity.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Замовлення</h1>
+
+<p>
+    <a asp-action="Create">Створити новий</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Кількість
+            </th>
+            <th>
+                Страва
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.kol)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dishs.name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrderID">Редагувати</a> |
+                <a asp-action="Details" asp-route-id="@item.OrderID">Подробиці</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderID">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

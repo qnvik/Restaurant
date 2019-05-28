@@ -1,0 +1,42 @@
+﻿@model ContosoUniversity.Models.Dish
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Подробиці</h1>
+
+<div>
+    <h4>Страви</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+           Назва
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt class = "col-sm-2">
+            Ціна
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.price)
+        </dd>
+        <dt class = "col-sm-2">
+            Тип страви
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Meal.MealID)
+        </dd>
+        <dt class = "col-sm-2">
+           Ресторан
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Restaurant.RestaurantID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.DishID">Редагувати</a> |
+    <a asp-action="Index">Повернутися</a>
+</div>

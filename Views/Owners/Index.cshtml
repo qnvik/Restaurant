@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ContosoUniversity.Models.Owner>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Власники</h1>
+
+<p>
+    <a asp-action="Create">Створити новий</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ім'я
+            </th>
+            <th>
+                Дата народження
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birth)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OwnerID">Редагувати</a> |
+                <a asp-action="Details" asp-route-id="@item.OwnerID">Подробиці</a> |
+                <a asp-action="Delete" asp-route-id="@item.OwnerID">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

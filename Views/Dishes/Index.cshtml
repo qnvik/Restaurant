@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ContosoUniversity.Models.Dish>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Страви</h1>
+<p>
+    <a asp-action="Create">Створити нову</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Знайти за назвою страви:<input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Знайти" class="btn btn-default" /> |
+            <a asp-action="Index">Повернутися до повного списку</a>
+        </p>
+    </div>
+</form>
+
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Знайти за рестораном: <input type="text" name="SearchString1" value="@ViewData["currentFilter1"]" />
+            <input type="submit" value="Знайти" class="btn btn-default" /> |
+            <a asp-action="Index">Повернутися до повного списку</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm1"]">Назва</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm2"]">Ціна</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm3"]">Тип страви</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm4"]">Ресторан</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Meal.name)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Restaurant.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.DishID">Редагувати</a> |
+                    <a asp-action="Details" asp-route-id="@item.DishID">Деталі</a> |
+                    <a asp-action="Delete" asp-route-id="@item.DishID">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
